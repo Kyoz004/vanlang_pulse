@@ -1,0 +1,121 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'blog/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Add these lines inside the <head> tag of your HTML template -->
+    <link rel="stylesheet" href="{% static 'blog/dark_mode.css' %}"> 
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    
+    {% if title %}
+        <title>VanLangPulse - {{ title }}</title>
+    {% else %}
+        <title>VanLangPulse</title>
+    {% endif %}
+
+    <style>
+      .search-form .form-control {
+        border-radius: 25px 0 0 25px;
+      }
+      .search-form .btn {
+        border-radius: 0 25px 25px 0;
+        background-color: #428bca;
+        border: none;
+      }
+      .search-form .btn:hover {
+        background-color: #428bca;
+      }
+    </style>
+
+  </head>
+  
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand font-weight-bold d-flex" href="{% url 'blog-home' %}">
+        <img src="{% static 'blog/favicon.ico' %}" alt="favicon" style="height: 50px; width: 50px; margin-right: 2px;">
+        <span style="font-size: 24px; margin-top: 5px;">VanLangPulse</span> 
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <div class="custom-control custom-switch mx-auto">
+              <input type="checkbox" id="darkModeToggle">
+              <ion-icon name="moon" class="moon"></ion-icon>
+              <ion-icon name="sunny" class="sun" style="display: none;"></ion-icon> <!-- Initially hidden -->
+            </div>
+          </li>
+        </ul>
+
+        <form id="searchform" class="form-inline my-2 my-lg-0 search-form" action="{% url 'search' %}" method="get">
+          <div class="input-group">
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Search Here...">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      
+        {% if user.is_authenticated %}
+          <a href="{% url 'user-posts' user %}" class="btn text-white m-2"><i class="fas fa-user-shield"></i> My Pulse</a>
+          <a href="{% url 'post-create' %}" class="btn text-white m-2"><i class="fas fa-pen-square"></i> New Pulse</a>
+          <a href="{% url 'profile' %}" class="btn text-white m-2"><i class="fas fa-id-card"></i> Profile</a>
+          
+          <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+          <a href="#" class="btn text-white m-2" onclick="document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+          </a>
+          
+        {% else %}
+          <a href="{% url 'login' %}" class="btn text-white m-2"><i class="fas fa-user-tie"></i> Log In</a>
+          <a href="{% url 'register' %}" class="btn text-white m-2"> <i class="fas fa-sign-in-alt"></i> Sign Up</a>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div class="container my-bg">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+    </div>
+    
+    <footer class="footer mt-auto py-0 bg-dark text-white fixed-bottom">
+      <div class="container text-center">
+        <span>&copy; 2024 VanLangPulse <a href="#" id="privacy-policy-link">Privacy Policy</a> <a href="#">Cookie Settings</a> <a href="#">Report a Bug</a></span></div></footer>
+        
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'blog/main.js' %}"></script>
+    <script src="{% static 'blog/dark_mode.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+  </body>
+</html>

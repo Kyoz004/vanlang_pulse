@@ -1,0 +1,103 @@
+/* dark_mode.css */
+.dark-mode .navbar {
+    border-radius: 10px; /* Để làm tròn các góc của navbar */
+}
+.dark-mode .bg-dark {
+    background-color: #212330 !important; /* Màu header và footer */
+}
+.dark-mode .bg-white {
+  background-color: #212330 !important; /* Màu bài post background */
+  border: none; /* Xóa border */
+  border-radius: 30px; /* Giữ lại border-radius */
+}
+.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+  color: #ffffff; /*Title của user */
+}
+body.dark-mode {
+    background-color: #171923; /* màu background main */
+    color: #fcfcfc; /*màu chữ Mô tả bài post */
+}
+.dark-mode .article-title {
+  color: #ffffff; /*Title của bài post */
+}
+.dark-mode a.article-title:hover {
+  color: #036db8; /*Hiển thị màu khi chọn bài post */
+}
+.dark-mode .content-section {
+  background: #303343; /* Màu của bài post background */
+  border: none; /* Xóa border */
+  border-radius: 20px; /* Giữ lại border-radius */
+  margin-top: 20px;
+}
+.dark-mode .jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #212330;
+  border-radius: .3rem;
+}
+.dark-mode .article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border: none; /* Xóa border */
+  border-bottom: 1px solid #ffffff; /* Màu của đường line phân cách */
+}
+.dark-mode .footer a {
+  color: #cccccc;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.custom-control {
+  position: absolute;
+}
+
+.custom-control input[type="checkbox"] {
+  display: inline-block; 
+  position: relative;
+  top: 0;
+  left: -50px; /* Move the checkbox */
+  opacity: 0; /* Hide the checkbox */
+  z-index: 0; /* Set z-index higher to hide the checkbox but still clickable */
+}
+
+.custom-control .moon,
+.custom-control .sun {
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  left: -60px; /* Move the button left */
+  z-index: 1; /* Overlay the icon on the checkbox */
+  color: #ffffff; /* Change the moon icon color to white */
+  transition: transform 0.2s;
+}
+
+.custom-control .moon:hover,
+.custom-control .sun:hover {
+  transform: scale(1.1); /* Effect when hovering the icon */
+}
+
+.custom-control .moon:hover::before,
+.custom-control .sun:hover::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 0px solid rgba(255, 255, 255, 0.5); /* Transparent white border */
+  border-radius: 50%; /* Make the border circular */
+  background: rgba(255, 255, 255, 0.1); /* Light fill color */
+  z-index: -1; /* Place behind the icon */
+}
+
+.custom-control .moon {
+  color: #ffffff; /* Change the moon icon color to white */
+}
+
+
+
+
+
+
+
+
